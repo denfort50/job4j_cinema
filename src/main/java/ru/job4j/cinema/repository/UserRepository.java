@@ -15,8 +15,8 @@ import java.util.Optional;
 @Repository
 public class UserRepository {
 
-    private static final String INSERT_USER = "INSERT INTO users(username, email, phone) VALUES (?, ?, ?)";
-    private static final String SELECT_USER_BY_EMAIL_AND_PHONE = "SELECT * FROM users WHERE email = ? AND phone = ?";
+    private static final String INSERT_USER = "INSERT INTO users(username, email, phone, password) VALUES (?, ?, ?, ?)";
+    private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "SELECT * FROM users WHERE email = ? AND password = ?";
     private static final String SELECT_USER_BY_ID = "SELECT * FROM users WHERE id = ?";
 
     private static final Logger LOG = LogManager.getLogger(UserRepository.class.getName());
@@ -34,6 +34,7 @@ public class UserRepository {
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getPhone());
+            ps.setString(4, user.getPassword());
             ps.execute();
             try (ResultSet it = ps.getGeneratedKeys()) {
                 if (it.next()) {
@@ -47,12 +48,12 @@ public class UserRepository {
         return result;
     }
 
-    public Optional<User> findUserByEmailAndPhone(String email, String phone) {
+    public Optional<User> findUserByEmailAndPassword(String email, String password) {
         Optional<User> result = Optional.empty();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement(SELECT_USER_BY_EMAIL_AND_PHONE)) {
+             PreparedStatement ps =  cn.prepareStatement(SELECT_USER_BY_EMAIL_AND_PASSWORD)) {
             ps.setString(1, email);
-            ps.setString(2, phone);
+            ps.setString(2, password);
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
                     result = Optional.of(createUser(it));
@@ -82,6 +83,7 @@ public class UserRepository {
 
     private User createUser(ResultSet rs) throws SQLException {
         return new User(rs.getInt("id"), rs.getString("username"),
-                rs.getString("email"), rs.getString("phone"));
+                rs.getString("email"), rs.getString("phone"),
+                rs.getString("password"));
     }
 }

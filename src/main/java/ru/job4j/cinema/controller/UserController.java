@@ -32,7 +32,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user, HttpServletRequest req) {
-        Optional<User> userDB = userService.findUserByEmailAndPhone(user.getEmail(), user.getPhone());
+        Optional<User> userDB = userService.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
         if (userDB.isEmpty()) {
             return "redirect:/loginPage?fail=true";
         }
@@ -49,7 +49,7 @@ public class UserController {
 
     @GetMapping("/addUser")
     public String addUser(Model model, HttpSession session) {
-        model.addAttribute("newUser", new User(0, "Имя", "Почта", "Телефон"));
+        model.addAttribute("newUser", new User(0, "Имя", "Почта", "Телефон", "Пароль"));
         addAttributeUser(model, session);
         return "addUser";
     }

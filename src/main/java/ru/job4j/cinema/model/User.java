@@ -8,14 +8,16 @@ public class User {
     private String username;
     private String email;
     private String phone;
+    private String password;
 
     public User() { }
 
-    public User(int id, String username, String email, String phone) {
+    public User(int id, String username, String email, String phone, String password) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.phone = phone;
+        this.password = password;
     }
 
     public int getId() {
@@ -50,6 +52,14 @@ public class User {
         this.phone = phone;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -69,4 +79,5 @@ public class User {
     public int hashCode() {
         return Objects.hash(id, username, email, phone);
     }
+
 }
