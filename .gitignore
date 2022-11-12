@@ -2,3 +2,5 @@
 target
 .idea
 logs
+/testdb.mv.db
+/testdb.trace.db

@@ -7,10 +7,7 @@ import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.model.Ticket;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +18,7 @@ public class TicketRepository {
     private static final String ADD_TICKET = "INSERT INTO tickets(session_id, pos_row, cell, user_id) VALUES (?, ?, ?, ?)";
     private static final String FIND_TICKETS_BY_SESSION_ID = "SELECT * FROM tickets WHERE session_id = ?";
     private static final String FIND_TICKETS_BY_SESSION_ID_AND_POS_ROW = "SELECT * FROM tickets WHERE session_id = ? AND pos_row = ?";
+    private static final String DELETE_ALL_TICKETS = "DELETE FROM tickets";
 
     private static final Logger LOG = LogManager.getLogger(TicketRepository.class.getName());
 
@@ -88,5 +86,14 @@ public class TicketRepository {
     private Ticket createTicket(Session session, ResultSet it) throws SQLException {
         return new Ticket(it.getInt("id"), session.getId(), it.getInt("pos_row"),
                 it.getInt("cell"), it.getInt("user_id"));
+    }
+
+    public void deleteAll() {
+        try (Connection cn = pool.getConnection();
+             Statement statement = cn.createStatement()) {
+            statement.execute(DELETE_ALL_TICKETS);
+        } catch (SQLException e) {
+            LOG.error("SQLException", e);
+        }
     }
 }

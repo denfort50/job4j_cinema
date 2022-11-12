@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS sessions (
     id SERIAL PRIMARY KEY,
-    name text UNIQUE,
+    name VARCHAR UNIQUE,
     photo BYTEA
 );
 

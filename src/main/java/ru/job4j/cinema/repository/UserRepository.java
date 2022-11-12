@@ -6,10 +6,7 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.cinema.model.User;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Optional;
 
 @Repository
@@ -18,6 +15,7 @@ public class UserRepository {
     private static final String INSERT_USER = "INSERT INTO users(username, email, phone, password) VALUES (?, ?, ?, ?)";
     private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "SELECT * FROM users WHERE email = ? AND password = ?";
     private static final String SELECT_USER_BY_ID = "SELECT * FROM users WHERE id = ?";
+    private static final String DELETE_ALL_USERS = "DELETE FROM users";
 
     private static final Logger LOG = LogManager.getLogger(UserRepository.class.getName());
 
@@ -85,5 +83,14 @@ public class UserRepository {
         return new User(rs.getInt("id"), rs.getString("username"),
                 rs.getString("email"), rs.getString("phone"),
                 rs.getString("password"));
+    }
+
+    public void deleteAll() {
+        try (Connection cn = pool.getConnection();
+             Statement statement = cn.createStatement()) {
+            statement.execute(DELETE_ALL_USERS);
+        } catch (SQLException e) {
+            LOG.error("SQLException", e);
+        }
     }
 }
