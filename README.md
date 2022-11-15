@@ -30,8 +30,8 @@
 2) В PostgreSQL создать базу данных cinema (url = `jdbc:postgresql://127.0.0.1:5432/cinema`)
 3) Открыть командную строку и перейти в папку с проектом, например `cd c:\projects\job4j_cinema`
 4) Выполнить команду `mvn install`
-5) Перейти в папку targets командой `cd target`
-6) Выполнить команду `java -jar job4j_cinema-1.0-SNAPSHOT.jar`
+5) Перейти в папку target командой `cd target`
+6) Выполнить команду `java -jar job4j_cinema-1.0.jar`
 7) Перейти по ссылке `http://localhost:8081/mainPage`
 
 ## Взаимодействие с приложением
