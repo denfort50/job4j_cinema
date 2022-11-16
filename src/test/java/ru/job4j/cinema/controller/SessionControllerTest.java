@@ -56,6 +56,18 @@ class SessionControllerTest {
     }
 
     @Test
+    void whenSelectRowThenFail() {
+        Model model = mock(Model.class);
+        HttpSession session = mock(HttpSession.class);
+        SessionService sessionService = mock(SessionService.class);
+        TicketService ticketService = mock(TicketService.class);
+        SessionController sessionController = new SessionController(sessionService, ticketService);
+        when(sessionService.findById(3)).thenReturn(Optional.empty());
+        String page = sessionController.selectRow(model, 3, session);
+        assertThat(page).isEqualTo("redirect:/404");
+    }
+
+    @Test
     void whenSelectCellThenSuccess() {
         Session session1 = new Session(1, "Cinema_1", null);
         int row = 1;
@@ -170,13 +182,13 @@ class SessionControllerTest {
         HttpSession session = mock(HttpSession.class);
         SessionService sessionService = mock(SessionService.class);
         TicketService ticketService = mock(TicketService.class);
+        SessionController sessionController = new SessionController(sessionService, ticketService);
         when(session.getAttribute("movieSessionId")).thenReturn(session1.getId());
         when(sessionService.findById(session1.getId())).thenReturn(Optional.of(session1));
         when(session.getAttribute("rowId")).thenReturn(row);
         when(session.getAttribute("cellId")).thenReturn(cell);
         when(session.getAttribute("ticketId")).thenReturn(ticket.getId());
         when(session.getAttribute("user")).thenReturn(user);
-        SessionController sessionController = new SessionController(sessionService, ticketService);
         String page = sessionController.purchaseSuccess(model, session);
         assertThat(page).isEqualTo("purchaseSuccess");
     }

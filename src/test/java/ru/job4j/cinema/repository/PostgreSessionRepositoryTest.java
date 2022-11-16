@@ -2,7 +2,7 @@ package ru.job4j.cinema.repository;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import ru.job4j.cinema.config.DataSourceConfigForTesting;
+import ru.job4j.cinema.config.TestDataSourceConfig;
 import ru.job4j.cinema.model.Session;
 
 import javax.imageio.ImageIO;
@@ -15,11 +15,12 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
 
-class SessionRepositoryTest {
+class PostgreSessionRepositoryTest {
 
-    private final DataSourceConfigForTesting dataSourceConfigForTesting = new DataSourceConfigForTesting();
+    private final TestDataSourceConfig testDataSourceConfig = new TestDataSourceConfig();
 
-    private final SessionRepository sessionRepository = new SessionRepository(dataSourceConfigForTesting.getDataSource());
+    private final SessionRepository sessionRepository =
+            new PostgreSessionRepository(testDataSourceConfig.getDataSource());
 
     @AfterEach
     void cleanTable() {

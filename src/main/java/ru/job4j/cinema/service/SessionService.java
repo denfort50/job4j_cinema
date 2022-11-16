@@ -1,29 +1,15 @@
 package ru.job4j.cinema.service;
 
-import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.Session;
-import ru.job4j.cinema.repository.SessionRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class SessionService {
-    private final SessionRepository store;
+public interface SessionService {
 
-    public SessionService(SessionRepository store) {
-        this.store = store;
-    }
+    List<Session> findAll();
 
-    public List<Session> findAll() {
-        return store.findAll();
-    }
+    Optional<Session> findById(int id);
 
-    public Optional<Session> findById(int id) {
-        return store.findById(id);
-    }
-
-    public void add(Session session) {
-        store.add(session);
-    }
+    void add(Session session);
 }

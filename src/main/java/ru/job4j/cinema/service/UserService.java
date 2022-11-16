@@ -1,29 +1,14 @@
 package ru.job4j.cinema.service;
 
-import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.User;
-import ru.job4j.cinema.repository.UserRepository;
 
 import java.util.Optional;
 
-@Service
-public class UserService {
+public interface UserService {
 
-    private final UserRepository store;
+    Optional<User> add(User user);
 
-    public UserService(UserRepository store) {
-        this.store = store;
-    }
+    Optional<User> findUserByEmailAndPassword(String email, String password);
 
-    public Optional<User> add(User user) {
-        return store.add(user);
-    }
-
-    public Optional<User> findUserByEmailAndPassword(String email, String password) {
-        return store.findUserByEmailAndPassword(email, password);
-    }
-
-    public Optional<User> findUserById(int userId) {
-        return store.findUserById(userId);
-    }
+    Optional<User> findUserById(int userId);
 }

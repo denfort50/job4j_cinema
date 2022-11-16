@@ -2,16 +2,16 @@ package ru.job4j.cinema.repository;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import ru.job4j.cinema.config.DataSourceConfigForTesting;
+import ru.job4j.cinema.config.TestDataSourceConfig;
 import ru.job4j.cinema.model.User;
 
 import static org.assertj.core.api.Assertions.*;
 
-class UserRepositoryTest {
+class PostgreUserRepositoryTest {
 
-    private final DataSourceConfigForTesting dataSourceConfigForTesting = new DataSourceConfigForTesting();
+    private final TestDataSourceConfig testDataSourceConfig = new TestDataSourceConfig();
 
-    private final UserRepository userRepository = new UserRepository(dataSourceConfigForTesting.getDataSource());
+    private final UserRepository userRepository = new PostgreUserRepository(testDataSourceConfig.getDataSource());
 
     @AfterEach
     void cleanTable() {

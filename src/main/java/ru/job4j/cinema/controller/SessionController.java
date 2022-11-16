@@ -3,12 +3,14 @@ package ru.job4j.cinema.controller;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.service.SessionService;
@@ -49,18 +51,24 @@ public class SessionController {
         return ResponseEntity.ok()
                 .headers(new HttpHeaders())
                 .contentLength(movieSession.orElseThrow().getPhoto().length)
-                .contentType(MediaType.parseMediaType("application/octet-stream"))
-                .body(new ByteArrayResource(movieSession.orElseThrow().getPhoto()));
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(new ByteArrayResource(movieSession.orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND)).getPhoto()));
     }
 
     @GetMapping("/selectRow/{movieSessionId}")
     public String selectRow(Model model, @PathVariable("movieSessionId") int id, HttpSession session) {
-        Session movieSession = sessionService.findById(id).orElseThrow();
-        session.setAttribute("movieSessionId", id);
-        model.addAttribute("movieSession", movieSession);
-        model.addAttribute("rows", ticketService.getFreeRows(movieSession));
-        addAttributeUser(model, session);
-        return "selectRow";
+        Optional<Session> movieSession = sessionService.findById(id);
+        if (movieSession.isPresent()) {
+            session.setAttribute("movieSessionId", id);
+            model.addAttribute("movieSession", movieSession.get());
+            model.addAttribute("rows", ticketService.getFreeRows(movieSession.get()));
+            addAttributeUser(model, session);
+            return "selectRow";
+        } else {
+            return "redirect:/404";
+        }
+
     }
 
     @GetMapping("/selectCell")

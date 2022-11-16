@@ -2,7 +2,7 @@ package ru.job4j.cinema.repository;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import ru.job4j.cinema.config.DataSourceConfigForTesting;
+import ru.job4j.cinema.config.TestDataSourceConfig;
 import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.model.User;
@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
 
-class TicketRepositoryTest {
+class PostgreTicketRepositoryTest {
 
-    private final DataSourceConfigForTesting dataSourceConfigForTesting = new DataSourceConfigForTesting();
+    private final TestDataSourceConfig testDataSourceConfig = new TestDataSourceConfig();
 
-    private final TicketRepository ticketRepository = new TicketRepository(dataSourceConfigForTesting.getDataSource());
-    private final UserRepository userRepository = new UserRepository(dataSourceConfigForTesting.getDataSource());
-    private final SessionRepository sessionRepository = new SessionRepository(dataSourceConfigForTesting.getDataSource());
+    private final TicketRepository ticketRepository = new PostgreTicketRepository(testDataSourceConfig.getDataSource());
+    private final UserRepository userRepository = new PostgreUserRepository(testDataSourceConfig.getDataSource());
+    private final SessionRepository sessionRepository = new PostgreSessionRepository(testDataSourceConfig.getDataSource());
 
     @AfterEach
     void cleanTable() {
