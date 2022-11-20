@@ -9,8 +9,6 @@ public interface TicketService {
 
     Optional<Ticket> createTicket(int movieSessionId, int row, int cell, int userId);
 
-    Map<Integer, Set<Integer>> createCellMap();
-
     List<Integer> getFreeRows(Session session);
 
     Set<Integer> getFreeCells(Session session, int row);
