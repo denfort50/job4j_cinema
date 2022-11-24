@@ -46,7 +46,7 @@ public class TicketServiceImpl implements TicketService {
 
     public Set<Integer> getFreeCells(Session session, int row) {
         List<Ticket> purchased = findTicketsBySessionIdAndPosRow(session, row);
-        Set<Integer> freeCells = new HashSet<>(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        Set<Integer> freeCells = new HashSet<>(cellList);
         purchased.forEach(ticket -> freeCells.remove(ticket.getCell()));
         return freeCells;
     }
