@@ -4,6 +4,11 @@ import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * Утилитный класс, предназначенный для получения и добавления атрибута "место"
+ * @author Denis Kalchenko
+ * @version 1.0
+ */
 public final class CellAttributeTool {
 
     private CellAttributeTool() {

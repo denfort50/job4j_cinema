@@ -27,6 +27,11 @@ import static ru.job4j.cinema.util.TicketAttributeTool.addAttributeTicket;
 import static ru.job4j.cinema.util.UserAttributeTool.addAttributeUser;
 import static ru.job4j.cinema.util.UserAttributeTool.getAttributeUser;
 
+/**
+ * Класс представляет собой контроллер для обработки действий с сеансами и билетами
+ * @author Denis Kalchenko
+ * @version 1.0
+ */
 @Controller
 public class SessionController {
 

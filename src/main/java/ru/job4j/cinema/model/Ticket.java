@@ -2,12 +2,36 @@ package ru.job4j.cinema.model;
 
 import java.util.Objects;
 
+/**
+ * Класс представляет собой модель данных билета
+ * @author Denis Kalchenko
+ * @version 1.0
+ */
 public class Ticket {
 
+    /**
+     * Идентификатор билета
+     */
     private int id;
+
+    /**
+     * Идентификатор сеанса
+     */
     private int sessionId;
+
+    /**
+     * Ряд
+     */
     private int posRow;
+
+    /**
+     * Место
+     */
     private int cell;
+
+    /**
+     * Идентификатор пользователя
+     */
     private int userId;
 
     public Ticket() { }

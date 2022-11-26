@@ -2,12 +2,36 @@ package ru.job4j.cinema.model;
 
 import java.util.Objects;
 
+/**
+ * Класс представляет собой модель данных пользователя
+ * @author Denis Kalchenko
+ * @version 1.0
+ */
 public class User {
 
+    /**
+     * Идентификатор пользователя
+     */
     private int id;
+
+    /**
+     * Имя
+     */
     private String username;
+
+    /**
+     * Электронная почта
+     */
     private String email;
+
+    /**
+     * Номер телефона
+     */
     private String phone;
+
+    /**
+     * Пароль
+     */
     private String password;
 
     public User() { }

@@ -3,6 +3,11 @@ package ru.job4j.cinema;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Класс, запускающий web-приложение
+ * @author Denis Kalchenko
+ * @version 1.0
+ */
 @SpringBootApplication
 public class Main {
 

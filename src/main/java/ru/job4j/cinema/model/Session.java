@@ -2,10 +2,26 @@ package ru.job4j.cinema.model;
 
 import java.util.Objects;
 
+/**
+ * Класс представляет собой модель данных сеанса
+ * @author Denis Kalchenko
+ * @version 1.0
+ */
 public class Session {
 
+    /**
+     * Идентификатор сеанса
+     */
     private int id;
+
+    /**
+     * Название
+     */
     private String name;
+
+    /**
+     * Постер
+     */
     private byte[] photo;
 
     public Session() { }

@@ -15,6 +15,11 @@ import java.util.Optional;
 
 import static ru.job4j.cinema.util.UserAttributeTool.addAttributeUser;
 
+/**
+ * Класс представляет собой контроллер для обработки действий с пользователями
+ * @author Denis Kalchenko
+ * @version 1.0
+ */
 @Controller
 public class UserController {
 

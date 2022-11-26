@@ -7,14 +7,24 @@ import org.springframework.core.env.Environment;
 
 import javax.sql.DataSource;
 
+/**
+ * Класс описывает конфигурацию DataSource
+ * @author Denis Kalchenko
+ * @version 1.0
+ */
 @Configuration
 public class DataSourceConfig {
+
     private final Environment environment;
 
     public DataSourceConfig(Environment environment) {
         this.environment = environment;
     }
 
+    /**
+     * Метод создает пул соединений с базой данных
+     * @return возвращает экземпляр класса, реализующего интерфейс DataSource
+     */
     @Bean
     public DataSource getDataSource() {
         BasicDataSource pool = new BasicDataSource();

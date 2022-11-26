@@ -5,6 +5,11 @@ import ru.job4j.cinema.model.User;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * Утилитный класс, предназначенный для получения и добавления атрибута "пользователь"
+ * @author Denis Kalchenko
+ * @version 1.0
+ */
 public final class UserAttributeTool {
 
     private UserAttributeTool() {
