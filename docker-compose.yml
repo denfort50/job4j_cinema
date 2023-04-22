@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=cinema
+      - GDATA=/var/lib/postgresql/data
+    volumes:
+      - ./db/cinema/data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+  app:
+    image: job4j_cinema
+    container_name: job4j_cinema
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/cinema
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db

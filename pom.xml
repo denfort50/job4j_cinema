@@ -16,28 +16,10 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <start-class>ru.job4j.cinema.Main</start-class>
     </properties>
 
-    <profiles>
-        <profile>
-            <id>test</id>
-            <properties>
-                <liquibase.config>src/test/resources/liquibase_test.properties</liquibase.config>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>production</id>
-            <properties>
-                <liquibase.config>src/main/resources/db/liquibase.properties</liquibase.config>
-            </properties>
-        </profile>
-    </profiles>
-
     <dependencies>
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -106,15 +88,33 @@
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
-
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>satisfy-liquibase</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${project.build.directory}/test-classes" />
+                                <mkdir dir="${project.build.directory}/classes" />
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>4.15.0</version>
+                <version>4.19.0</version>
                 <configuration>
                     <propertyFile>${liquibase.config}</propertyFile>
                 </configuration>
@@ -194,4 +194,22 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>test</id>
+            <properties>
+                <liquibase.config>src/test/resources/liquibase_test.properties</liquibase.config>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>production</id>
+            <properties>
+                <liquibase.config>src/main/resources/db/liquibase.properties</liquibase.config>
+            </properties>
+        </profile>
+    </profiles>
 </project>
