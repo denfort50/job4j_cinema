@@ -24,8 +24,17 @@
 * JDK 17
 * Apache Maven 3.8
 * PostgreSQL 14
+* Docker
 
 ## Инструкция по запуску проекта
+### Используя Docker – выполнить команды
+1)  `git clone https://github.com/denfort50/job4j_cinema`
+2) `cd job4j_cinema`
+3) `mvn install`
+4) `docker build -t job4j_cinema .`
+5) `docker-compose up`
+
+### Не используя Docker
 1) Скачать и разархивировать проект
 2) В PostgreSQL создать базу данных cinema (url = `jdbc:postgresql://127.0.0.1:5432/cinema`)
 3) Открыть командную строку и перейти в папку с проектом, например `cd c:\projects\job4j_cinema`
